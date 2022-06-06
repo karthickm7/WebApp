@@ -1,95 +1,89 @@
-import React from "react";
+import React ,{ useState, useEffect }from "react";
+import "../Login/Login.css";
 
-import { Form, Field } from "react-final-form";
-import Styles from "./Styles";
-import Input from "./Input";
-import { ThemeProvider } from "react-bootstrap";
+import { useNavigate } from "react-router";
+import { Formik} from "formik";
 
-// const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-// const onSubmit = async (values) => {
-//   await sleep(1000);
-//   window.alert(JSON.stringify(values));
-// };
 
-const theme = {
-  main: "mediumseagreen",s
-};
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { getuser } from "../../State /Action/Action";
+import { Container } from "react-bootstrap";
 
-const Forms = () => (
-  <Styles>
-    <h1>React final Form</h1>
-    {/* <h2>Password Confirmation validation</h2> */}
-    <Form
-      onSubmit={onSubmit}
-      validate={(values) => {
-        const errors = {};
-        if (!values.username) {
-          errors.username = "Required";
-        }
-        if (!values.password) {
-          errors.password = "Required";
-        }
-        if (!values.confirm) {
-          errors.confirm = "Required";
-        } else if (values.confirm !== values.password) {
-          errors.confirm = "password and confirm password must match";
-        }
-        return errors;
+const Login = () => {
+  let navigate = useNavigate();
+  const dispatch: any = useDispatch();
+  const user = useSelector((state: any) => state.allreducer.user);
+  console.log(user,'login user')
+
+  const schema = Yup.object().shape({
+    email: Yup.string().email("Invalid email format").required(),
+    password: Yup.string()
+      .required("Please Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      )
+      .required(),
+  });
+  console.log("testschema", user);
+  const [values, setValues] = useState<any>("");
+
+  useEffect(() => {
+    dispatch(getuser());
+    console.log("getcall")
+  }, [dispatch]);
+
+  return (
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
       }}
-      render={({ handleSubmit, form, submitting, pristine, _values }) => (
-        <form onSubmit={handleSubmit}>
-          <Field name="username">
-            {({ input, meta }) => (
-              <div>
-                <label>UserName</label>
-                <Input dummy={input} type="text" placeholder="user name" />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-          <Field name="password">
-            {({ input, meta }) => (
-              <div>
-                <label>Password</label>
-                <Input dummy={input} type="password" placeholder="password" />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-          <Field name="confirm">
-            {({ input, meta }) => (
-              <div>
-                <label>Confirm</label>
-                <Input
-                  dummy={input}
-                  type="password"
-                  placeholder=" Confirm Password"
-                />
-                {meta.error && meta.touched && <span>{meta.error}</span>}
-              </div>
-            )}
-          </Field>
-          <div className="button">
-            <ThemeProvider theme={theme}>
-              <button type="submit" disabled={submitting}>
-                {" "}
-                submit
-              </button>
-            </ThemeProvider>
-
-            <button
-              type="button"
-              onClick={form.reset}
-              disabled={submitting || pristine}
-            >
-              {" "}
-              Reset
-            </button>
+      validationSchema={schema}
+      onSubmit={(data) => {
+        console.log("clicked 1", data);
+        setValues(data);
+        navigate("/home");
+      }}
+    >
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          <Container>
+          <h1>Login</h1>
+          <div className="pb-3">
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              className="inputBox"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <p className="errorMesg">
+              {formik.touched.email && formik.errors.email}
+            </p>
           </div>
-          {/* <pre>{JSON.stringify(values)}</pre> */}
+          <div className="pb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              className="inputBox"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <p className="errorMesg">
+              {formik.touched.password && formik.errors.password}
+            </p>
+          </div>
+          <div className="pb-2">
+            <button className="btn btn-dark  font-weight-bold "> Submit</button>
+          </div>
+          </Container>
         </form>
       )}
-    />
-  </Styles>
-);
-export default Forms;
+    </Formik>
+  );
+};
+export default Login;

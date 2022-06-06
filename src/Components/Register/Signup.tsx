@@ -1,59 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Register/Signup.css";
-//import Login from "../Login/Login";
-//import { useNavigate } from "react-router";
-import { Formik, FormikValues } from "formik";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Grid } from "@mui/material";
+
+import { useNavigate } from "react-router";
+import { Formik } from "formik";
+
 import * as Yup from "yup";
-import { useState } from "react";
 
-// const TextField =(props) =>{
-//   return <input {...props}/>
-// }
+import { useDispatch } from "react-redux";
+import { adduser } from "../../State /Action/Action";
 
-// interface FormValues {
-//   username:string;
-//   email: string;
-//   password: string;
-// }
+export interface Istate {
+  name: string;
+  email: string;
+  password: string;
+}
 
-// const initialValues:FormValues={
-//   username: "",
-//   email: "",
-//   password: "",
-// }
 const Signup = () => {
-  const phoneRegExp =
-    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  let navigate = useNavigate();
+  let dispatch: any = useDispatch();
   const schema = Yup.object().shape({
     name: Yup.string().required(),
     email: Yup.string().email("Invalid email format").required(),
     password: Yup.string()
       .required("Please Enter your password")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d[9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
       )
       .required(),
-  
   });
-  console.log("testschema",schema)
-  const[values,setValues]=useState<any>("")
+  const [values, setValues] = useState<any>("");
 
-  // const handleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-  //   const {name,value}=event.target;
-  //   setValues({...values,[name]:value});
-  // }
-
-  // const handleSubmit=(event:React.ChangeEvent<HTMLInputElement>):void=>{
-  //   event.preventDefault()
-  //   console.log("clicked")
-  // }
+  console.log("testschema", values);
   return (
     <Formik
       initialValues={{
@@ -64,17 +42,20 @@ const Signup = () => {
       validationSchema={schema}
       onSubmit={(data) => {
         console.log("clicked 1", data);
-        setValues(data)
-        localStorage.setItem("Signup", JSON.stringify(data))
+        setValues(data);
+        dispatch(adduser(data));
+        navigate("/login");
       }}
     >
       {(formik) => (
         <form onSubmit={formik.handleSubmit}>
+          <h1>Signup</h1>
           <div className="pb-3">
             <label>Name</label>
             <input
               type="text"
               className="inputBox"
+              placeholder="UserName"
               name="name"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -90,6 +71,7 @@ const Signup = () => {
               type="text"
               name="email"
               className="inputBox"
+              placeholder="Email"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -102,6 +84,7 @@ const Signup = () => {
             <input
               type="password"
               name="password"
+              placeholder="password"
               className="inputBox"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -111,12 +94,7 @@ const Signup = () => {
             </p>
           </div>
           <div className="pb-2">
-            <button
-              className="btn btn-dark w-100 font-weight-bold mt-2"
-            >
-              {" "}
-              Submit
-            </button>
+            <button className="btn btn-dark font-weight-bold "> Submit</button>
           </div>
         </form>
       )}

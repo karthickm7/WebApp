@@ -1,8 +1,14 @@
-.form{
-    padding:50px;
-    margin-left: 30rem;
-    margin-right: 30rem;
+.pb-3{
+    margin-bottom: 3px;
 }
-/* .required{
-    color: yellowgreen;
-} */
+label{
+    padding: 10px;
+    font-weight: bold;
+    padding-right: 1rem;
+}
+.pb-2{
+margin-left: 50px;
+margin-bottom:30rem;
+   
+}
+
