@@ -4,7 +4,20 @@ import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
 import {Store} from "./State /Store/Store"
+import axios from 'axios';
+import { request } from 'http';
 
+axios.create({
+  baseURL:`${process.env.REACT_APP_SERVER_URL}`,
+  headers:{
+    "Content-Type":"application/json",
+  },
+})
+
+// axios.interceptors.use((request,Response)=>{
+
+
+// })
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

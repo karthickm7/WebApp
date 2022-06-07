@@ -66,7 +66,8 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {user.map((row: any, index: any) => {
+          {/* //{user[0].name} */}
+            {user && user.map((row: any, index: any) => {
               return (
                 <tr key={row.id}>
                   <td className="data">{index + 1}</td>

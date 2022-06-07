@@ -10,7 +10,7 @@ export const adduser = (values: Istate) => {
   console.log(values, "signpost");
   return async (dispatch: Dispatch) => {
     await axios
-      .post(" http://localhost:3006/user", values)
+      .post("http://localhost:3008/signup", values)
       .then((res) => {
         console.log(res, "post res");
         dispatch({ type: POST_SIGNUSER, payload: values });
@@ -24,7 +24,7 @@ export const adduser = (values: Istate) => {
 export const getuser = () => {
   return async (dispatch: Dispatch) => {
     try {
-      let res = await axios.get("http://localhost:3006/user");
+      let res = await axios.get("http://localhost:3008/user");
       dispatch({ type: FETCH_SIGNUSER, payload: res.data });
       console.log(res.data, "getres");
     } catch (err) {

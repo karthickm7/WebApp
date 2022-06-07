@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { putuser } from "../../State /Action/Action";
+import "./Model.css";
 
 const Modals = (props: any) => {
   let navigate = useNavigate();
@@ -52,7 +53,8 @@ const Modals = (props: any) => {
 
   return (
     <>
-      <div>
+      <div className="form">
+        <h1>Edit User</h1>
        
             <div>
               <input
@@ -74,7 +76,7 @@ const Modals = (props: any) => {
               ></input>
             </div>
          
-            <Button variant="secondary" onClick={handleUpdate}>
+            <Button variant="secondary" className="button" onClick={handleUpdate}>
               Save Changes
             </Button>
          
