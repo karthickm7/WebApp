@@ -7,6 +7,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser } from "../../State /Action/Action";
+import{adduserlogin}from "../../State /Action/Action"
+
+export interface Istates {
+  
+  email: string;
+  password: string;
+}
 
 const Login = () => {
   let navigate = useNavigate();
@@ -24,12 +31,12 @@ const Login = () => {
       )
       .required(),
   });
-  console.log("testschema", user);
+  //console.log("testschema", user);
 
-  useEffect(() => {
-    dispatch(getuser());
-    console.log("getcall");
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getuser());
+  //   console.log("getcall");
+  // }, [dispatch]);
 
   return (
     <Formik
@@ -38,16 +45,19 @@ const Login = () => {
         password: "",
       }}
       validationSchema={schema}
-      onSubmit={(values: any) => {
-        console.log("clicked 1", values);
+      onSubmit={(data) => {
+        console.log("clicked 1", data);
 
-        const validate = (userdata: any) => {
-          return userdata.email === values.email;
-        };
-        let currentUser = user.find(validate);
-        if (currentUser) {
-          navigate("/home");
-        }
+        dispatch(adduserlogin(data))
+        navigate('/home')
+        // const validate = (userdata: any) => {
+        //   return userdata.email === values.email;
+        // };
+        // let currentUser = user.find(validate);
+        // if (currentUser) {
+        //   
+        // }
+       
       }}
     >
       {(formik) => (
@@ -59,7 +69,7 @@ const Login = () => {
               <input
                 type="text"
                 name="email"
-                value={formik.values.email}
+                // value={formik.values.email}
                 className="inputBox"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -73,7 +83,7 @@ const Login = () => {
               <input
                 type="password"
                 name="password"
-                value={formik.values.password}
+                // value={formik.values.password}
                 className="inputBox"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

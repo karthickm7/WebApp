@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getuser, removeuser } from "../../State /Action/Action";
+import { getuser } from "../../State /Action/Action";
 import { useNavigate } from "react-router";
 
 const Home = () => {
@@ -16,13 +16,13 @@ const Home = () => {
   // const PopupShow = () => {
   //   setShow(true);
   // };
-  console.log(user, "home user");
+  console.log(typeof user, "home user");
   //const[del,setDel]=useState(false)
 
   //delete onClick
   const onDelete = (e: any, row: any) => {
     e.preventDefault();
-    dispatch(removeuser(row));
+    //  dispatch(removeuser(row));//
     dispatch(getuser());
   };
 

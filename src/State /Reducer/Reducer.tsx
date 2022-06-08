@@ -1,4 +1,4 @@
-import { FETCH_SIGNUSER, POST_SIGNUSER} from "../Action/Action";
+import { FETCH_SIGNUSER, POST_SIGNUSER,POST_LOGUSER} from "../Action/Action";
 
 
 const intialState = {
@@ -12,6 +12,8 @@ export const Reducer = (state = intialState, action: { type: any,payload: any; }
         console.log(action, 'reducer');
         return { ...state, user:action.payload };
       case POST_SIGNUSER:
+        return { ...state, user:action.payload };
+      case POST_LOGUSER:
         return { ...state, user:action.payload };
       // case DELETE_USER:
       //   return state.filter((user:any) => user!== action.payload);

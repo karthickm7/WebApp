@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { putuser } from "../../State /Action/Action";
+//import { putuser } from "../../State /Action/Action";
 import "./Model.css";
 
 const Modals = (props: any) => {
@@ -47,7 +47,7 @@ const Modals = (props: any) => {
 
   const handleUpdate = (e: any) => {
     e.preventDefault();
-    dispatch(putuser(edituser, id as string));
+    //dispatch(putuser(edituser, id as string));//
     navigate('/home');
   };
 
