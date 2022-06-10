@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { Store } from "./State /Store/Store";
 import axios from "axios";
 import Token from "./TokenService/Token";
-import { string } from "yup";
+
 axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
@@ -17,7 +17,7 @@ axios.create({
 axios.interceptors.request.use((request: any) => {
   console.log("intercetor =-=-=-=-request-=-=-=-=-=-=request", request);
   const token = Token.getAccessToken();
-  console.log(Token, "request------------------------ token");
+  console.log(token, "request------------------------ token");
   request.headers = {
     "x-access-token": token,
     "Content-Type": "application/json",
@@ -32,6 +32,7 @@ axios.interceptors.response.use((res) => {
 },
 
 async (err:any)=>{
+  const originalConfig = err.config;
   console.log("axios----error---------",err)
   if (err.response.status === 401) {
     console.log("401 unauthorized");
@@ -47,12 +48,13 @@ async (err:any)=>{
           "Content-Type": "application/json",
 
         });
+        console.log("new access token", res)
       }
-      catch{
-
+      catch(err){
+          return Promise.reject(err)       
       }
     }
-     
+    return Promise.reject(err) 
   }
 }
 );

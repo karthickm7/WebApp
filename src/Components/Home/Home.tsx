@@ -3,35 +3,38 @@ import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser } from "../../State /Action/Action";
 import { useNavigate } from "react-router";
+import{removeuser}from "../../State /Action/Action"
+
 
 const Home = () => {
   let dispatch: any = useDispatch();
+  // const [userData, setuserData] = useState<any>();
   let navigate = useNavigate();
-  const user = useSelector((state: any) => state.allreducer.user);
-  // const [show, setShow] = useState(false);
+  const user = useSelector((state: any) => state.allreducer?.user);
 
-  // const PopupClose = () => {
-  //   setShow(false);
-  // };
-  // const PopupShow = () => {
-  //   setShow(true);
-  // };
-  console.log(typeof user, "home user");
+  console.log(user);
+
+  // user.user.map((d:[])=>{
+  //   console.log("user map")
+  // })
+
+  // console.log(reportsData, "apiResponse");
   //const[del,setDel]=useState(false)
 
   //delete onClick
-  const onDelete = (e: any, row: any) => {
+  const onDelete = (e: any, userData: any) => {
     e.preventDefault();
-    //  dispatch(removeuser(row));//
+      dispatch(removeuser(userData));//
     dispatch(getuser());
   };
 
   //edit onClick
-  const handleEdit = (row: any) => {
-    navigate(`/Modals/${row}`);
+  const handleEdit = (userData: any) => {
+    navigate(`/Modals/${userData}`);
   };
 
   useEffect(() => {
+    // console.log("side effect runs");
     dispatch(getuser());
   }, [dispatch]);
 
@@ -60,42 +63,45 @@ const Home = () => {
           <thead>
             <tr>
               <th>Sl.No</th>
-              <th>User Id</th>
-              <th>Last Name</th>
+
+              <th>name</th>
               <th>Email</th>
             </tr>
           </thead>
           <tbody>
-          {/* //{user[0].name} */}
-            {user && user.map((row: any, index: any) => {
-              return (
-                <tr key={row.id}>
-                  <td className="data">{index + 1}</td>
-                  <td className="data"> {row.id}</td>
-                  <td className="data"> {row.name}</td>
-                  <td className="data"> {row.email}</td>
-                  <td>
-                    <Button
-                      onClick={() => {
-                        handleEdit(row.id);
-                      }}
-                      variant="dark"
-                    >
-                      EDIT
-                    </Button>
-                  </td>
+            {/* {user.tours.length !== 0 ? user.tours : [].map(()=>{})} */}
+            {user &&
+              user.map((userData: any, i: any) => {
+                return (
+                  <tr key={userData.i}>
+                    <td>{i + 1}</td>
 
-                  <td>
-                    <Button
-                      onClick={(e) => onDelete(e, row.id)}
-                      variant="danger"
-                    >
-                      DELETE
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
+                    <td>{userData.name}</td>
+                    <td>{userData.email}</td>
+                    <td>
+                      <Button
+                        onClick={() => {
+                           handleEdit(userData);
+                        }}
+                        variant="dark"
+                      >
+                        EDIT
+                      </Button>
+                    </td>
+
+                    <td>
+                      <Button
+                        onClick={(e) => {
+                          onDelete(e,userData.id);
+                        }}
+                        variant="danger"
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })}
           </tbody>
         </Table>
       </div>

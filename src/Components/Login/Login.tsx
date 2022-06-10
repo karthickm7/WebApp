@@ -18,8 +18,8 @@ export interface Istates {
 const Login = () => {
   let navigate = useNavigate();
   const dispatch: any = useDispatch();
-  const user = useSelector((state: any) => state.allreducer.user);
-  console.log(user, "login user");
+  // const user = useSelector((state: any) => state.allreducer.user);
+  // console.log(user, "login user");
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required(),

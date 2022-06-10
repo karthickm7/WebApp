@@ -15,8 +15,7 @@ export const adduser = (values: Istate) => {
     await axios
       .post("http://localhost:3016/signup", values)
       .then((res) => {
-      
-        console.log(res, "post res");
+        console.log(res, "signpost res");
 
         dispatch({ type: POST_SIGNUSER, payload: values });
       })
@@ -30,11 +29,11 @@ export const adduserlogin = (values: Istates) => {
   console.log(values, "logpost");
   return async (dispatch: Dispatch) => {
     await axios
-      .post("http://localhost:3016/login",values)
+      .post("http://localhost:3016/login", values)
       .then((res) => {
-        console.log(res, "post res");
+        console.log(res, "logpost res");
         Token.setAccessToken(res.data.message.token);
-        Token.setRefreshToken(res.data.message.refreshToken)
+        Token.setRefreshToken(res.data.message.refreshToken);
 
         dispatch({ type: POST_LOGUSER, payload: values });
       })
@@ -44,49 +43,63 @@ export const adduserlogin = (values: Istates) => {
   };
 };
 export const getuser = () => {
+  console.log("Im in getuser action");
   return async (dispatch: Dispatch) => {
-    try {
-      let res = await axios.get("http://localhost:3016/home", {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/home`, {
         headers: { "x-access-token": Token.getAccessToken() },
       })
-      dispatch({ type: FETCH_SIGNUSER, payload: res.data });
-      console.log(res.data, "getres");
-    } catch (err) {
-      console.log(err);
-      alert("error handling");
-    } finally {
-      console.log("welcome finally");
-    }
+      .then((res) => {
+        console.log(res,'getres');
+        dispatch({ type:FETCH_SIGNUSER, payload: res.data.data })
+        console.log(res.data.data, "get api");
+        //localStorage.removeItem("Login Details");
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+    // try {
+    //   let res = await axios.get("http://localhost:3016/home", {
+    //     headers: { "x-access-token": Token.getAccessToken() },
+    //   })
+    //   dispatch({ type: FETCH_SIGNUSER, payload: res.data });
+    //   console.log(res, "getres");
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("error handling");
+    // } finally {
+    //   console.log("welcome finally");
+    // }
   };
 };
 
-// export const removeuser = (data: any) => {
-//   return async (dispatch: Dispatch) => {
-//     await axios
-//       .delete(`http://localhost:3019/home/${data}`)
-//       .then((res) => {
-//         console.log(res, "Deleteresponse");
-//         dispatch({ type: DELETE_USER, payload: res.data });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+export const removeuser = (userData: any) => {
+  return async (dispatch: Dispatch) => {
+    await axios
+      .delete(`http://localhost:3016/home/${userData}`)
+      .then((res) => {
+        console.log(res, "Deleteresponse");
+        dispatch({ type: DELETE_USER, payload: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
-// export const putuser = (edituser: any, id: string | number) => {
-//   console.log(edituser, id);
-//   return async (dispatch: Dispatch) => {
-//     await axios
-//       .put(`http://localhost:3019/home/${id}`, edituser)
+export const putuser = (edituser: any, id: string | number) => {
+  console.log(edituser, id);
+  return async (dispatch: Dispatch) => {
+    await axios
+      .put(`http://localhost:3016/home/${id}`, edituser)
 
-//       .then((res) => {
-//         console.log(res, "putf");
-//         //dispatch(fetchfood());
-//         console.log("edit", edituser);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+      .then((res) => {
+        console.log(res, "putf");
+        //dispatch(fetchfood());
+        console.log("edit", edituser);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};

@@ -6,10 +6,10 @@ const intialState = {
     
   };
 export const Reducer = (state = intialState, action: { type: any,payload: any; }) => {
-    console.log("testforaction",state,action)
+    // console.log("testforaction",state,action)
     switch (action.type) {
       case FETCH_SIGNUSER:
-        console.log(action, 'reducer');
+        console.table(action.payload);
         return { ...state, user:action.payload };
       case POST_SIGNUSER:
         return { ...state, user:action.payload };
