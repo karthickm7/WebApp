@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.4",
     "sonarqube-scanner": "^2.8.1"
   }
 }

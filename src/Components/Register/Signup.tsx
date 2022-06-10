@@ -8,6 +8,8 @@ import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
 import { adduser } from "../../State /Action/Action";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export interface Istate {
   name: string;
@@ -35,6 +37,7 @@ const Signup = () => {
   return (
     <Formik
       initialValues={{
+        id:uuidv4(),
         name: "",
         email: "",
         password: "",

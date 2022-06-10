@@ -76,7 +76,8 @@ export const getuser = () => {
 export const removeuser = (userData: any) => {
   return async (dispatch: Dispatch) => {
     await axios
-      .delete(`http://localhost:3016/home/${userData}`)
+    
+      .delete(`http://localhost:3016/Deleteuser/${userData}`)
       .then((res) => {
         console.log(res, "Deleteresponse");
         dispatch({ type: DELETE_USER, payload: res.data });
@@ -87,16 +88,17 @@ export const removeuser = (userData: any) => {
   };
 };
 
-export const putuser = (edituser: any, id: string | number) => {
-  console.log(edituser, id);
+export const putuser = (edituser: any, id:any) => {
+  console.log(edituser, "edituser");
+  console.log("Im in edit action")
   return async (dispatch: Dispatch) => {
     await axios
-      .put(`http://localhost:3016/home/${id}`, edituser)
+      .put(`http://localhost:3016/Edituser/${id}`,edituser)
 
       .then((res) => {
         console.log(res, "putf");
         //dispatch(fetchfood());
-        console.log("edit", edituser);
+        //console.log("edit", edituser);
       })
       .catch((err) => {
         console.log(err);

@@ -20,24 +20,24 @@ const Modals = (props: any) => {
     setEdituser({ ...edituser, [e.target.name]: e.target.value });
   };
 
-  let { id }= useParams();
-  console.log(id, "params");
+  const {id} = useParams();
+  console.log({id});
 
   useEffect(() => {
     const dynamicedit = () => {
       axios
-        .get(`http://localhost:3016/home/${id}`)
+        .get(`http://localhost:3016/getuser/${id}`)
 
         .then((res) => {
-          console.log(res, "edit");
-          setState(res.data);
+          console.log(res.data.data, "edit");
+          setState(res.data.data);
         })
         .catch((err) => {
           console.log(err, "error");
         });
     };
     dynamicedit();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (state) {
@@ -47,7 +47,7 @@ const Modals = (props: any) => {
 
   const handleUpdate = (e: any) => {
     e.preventDefault();
-    dispatch(putuser(edituser, id as string));//
+    dispatch(putuser(edituser,id ));
     navigate('/home');
   };
 

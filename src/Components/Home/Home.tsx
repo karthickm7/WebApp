@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser } from "../../State /Action/Action";
-import { useNavigate } from "react-router";
-import{removeuser}from "../../State /Action/Action"
-
+import { useNavigate} from "react-router";
+import { removeuser } from "../../State /Action/Action";
 
 const Home = () => {
   let dispatch: any = useDispatch();
@@ -24,19 +23,19 @@ const Home = () => {
   //delete onClick
   const onDelete = (e: any, userData: any) => {
     e.preventDefault();
-      dispatch(removeuser(userData));//
+    dispatch(removeuser(userData)); //
     dispatch(getuser());
   };
 
   //edit onClick
-  const handleEdit = (userData: any) => {
-    navigate(`/Modals/${userData}`);
+  const handleEdit = (userData: any) => { 
+    navigate(`/Modals/${userData.id}`);
   };
 
   useEffect(() => {
     // console.log("side effect runs");
     dispatch(getuser());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
@@ -63,7 +62,7 @@ const Home = () => {
           <thead>
             <tr>
               <th>Sl.No</th>
-
+              <th>user ID</th>
               <th>name</th>
               <th>Email</th>
             </tr>
@@ -75,13 +74,13 @@ const Home = () => {
                 return (
                   <tr key={userData.i}>
                     <td>{i + 1}</td>
-
+                    <td>{userData.id}</td>
                     <td>{userData.name}</td>
                     <td>{userData.email}</td>
                     <td>
                       <Button
                         onClick={() => {
-                           handleEdit(userData);
+                          handleEdit(userData);
                         }}
                         variant="dark"
                       >
@@ -92,7 +91,7 @@ const Home = () => {
                     <td>
                       <Button
                         onClick={(e) => {
-                          onDelete(e,userData.id);
+                          onDelete(e, userData.id);
                         }}
                         variant="danger"
                       >
