@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Register/Signup.css";
-
-import { useNavigate } from "react-router";
 import { Formik } from "formik";
 
 import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
 import { adduser } from "../../State /Action/Action";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router";
 
 export interface Istate {
   name: string;
@@ -31,21 +29,19 @@ const Signup = () => {
       )
       .required(),
   });
-  const [values, setValues] = useState<any>("");
 
-  console.log("testschema", values);
   return (
     <Formik
       initialValues={{
-        id:uuidv4(),
+        id: uuidv4(),
         name: "",
         email: "",
         password: "",
       }}
       validationSchema={schema}
       onSubmit={(data) => {
-        console.log("clicked 1", data);
-        setValues(data);
+        // console.log("clicked 1", data);
+
         dispatch(adduser(data));
         navigate("/login");
       }}

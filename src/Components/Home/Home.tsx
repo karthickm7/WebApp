@@ -1,41 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getuser } from "../../State /Action/Action";
-import { useNavigate} from "react-router";
+import { useNavigate } from "react-router";
 import { removeuser } from "../../State /Action/Action";
 
 const Home = () => {
   let dispatch: any = useDispatch();
-  // const [userData, setuserData] = useState<any>();
+
   let navigate = useNavigate();
-  const user = useSelector((state: any) => state.allreducer?.user);
-
-  console.log(user);
-
-  // user.user.map((d:[])=>{
-  //   console.log("user map")
-  // })
-
-  // console.log(reportsData, "apiResponse");
-  //const[del,setDel]=useState(false)
+  const user = useSelector((state: any) => state.allreducer.user);
 
   //delete onClick
   const onDelete = (e: any, userData: any) => {
     e.preventDefault();
-    dispatch(removeuser(userData)); //
+    dispatch(removeuser(userData));
     dispatch(getuser());
   };
 
   //edit onClick
-  const handleEdit = (userData: any) => { 
+  const handleEdit = (userData: any) => {
     navigate(`/Modals/${userData.id}`);
   };
 
   useEffect(() => {
-    // console.log("side effect runs");
     dispatch(getuser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -68,9 +58,8 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {user.tours.length !== 0 ? user.tours : [].map(()=>{})} */}
-            {user &&
-              user.map((userData: any, i: any) => {
+            {user.length > 0 &&
+              user.map((userData: any, i: number) => {
                 return (
                   <tr key={userData.i}>
                     <td>{i + 1}</td>

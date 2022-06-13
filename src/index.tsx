@@ -26,40 +26,44 @@ axios.interceptors.request.use((request: any) => {
 });
 
 //interceptor response
-axios.interceptors.response.use((res) => {
-  console.log("intterceptors=-= response-=-=", res);
-  return res;
-},
+axios.interceptors.response.use(
+  (res) => {
+    console.log("intterceptors=-= response-=-=", res);
+    return res;
+  },
 
-async (err:any)=>{
-  const originalConfig = err.config;
-  console.log("axios----error---------",err)
-  if (err.response.status === 401) {
-    console.log("401 unauthorized");
-    if (
-      err.response.data.message === "Unauthorized! Access Token was expired!"
-    ){
-      try{
-        let refresh = Token.getRefreshToken();
-        console.log(refresh,"1 hour refresh token")
-        const res =await axios.post(`${process.env.REACT_APP_SERVER_URL}/refresh`,
-        {
-          "x-access-token": refresh,
-          "Content-Type": "application/json",
+  async (err: any) => {
+    const originalConfig = err.config;
+    console.log(originalConfig,"originalconfig")
 
-        });
-        console.log("new access token", res)
+    console.log("axios----error---------", err);
+    if (err.response.status === 401) {
+      console.log("401 unauthorized");
+      if (
+        err.response.data.message === "Unauthorized! Access Token was expired!"
+      ) {
+        try {
+          let refresh = Token.getRefreshToken();
+          console.log(refresh, "1 hour refresh token");
+          const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/refresh`,
+            {
+              "x-access-token": refresh,
+              "Content-Type": "application/json",
+            }
+          );
+          console.log("new access token", res.data.data.token);
+          Token.updatedTokenService(res?.data?.data?.token);
+          axios.defaults.headers.common["x-access-token"] = res?.data?.data?.token;
+          return axios(originalConfig);
+        } catch (err) {
+          return Promise.reject(err);
+        }
       }
-      catch(err){
-          return Promise.reject(err)       
-      }
+      return Promise.reject(err);
     }
-    return Promise.reject(err) 
   }
-}
 );
-
-
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
