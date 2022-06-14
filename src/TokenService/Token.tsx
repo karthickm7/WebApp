@@ -13,19 +13,24 @@ const getRefreshToken = () => {
   return JSON.parse(localStorage.getItem("RefreshToken") || "{}");
 };
 
-const updatedTokenService=(token:any)=>{
+const updatedTokenService = (token: any) => {
   let user = JSON.parse(localStorage.getItem("accessToken") || "{}");
   console.log("older access token", user);
-   user=token
-   console.log("user new access token", user);
-  localStorage.setItem("accessToken",JSON.stringify(user))
-}
+  user = token;
+  console.log("user new access token", user);
+  localStorage.setItem("accessToken", JSON.stringify(user));
+};
+
+const removeToken = () => {
+  localStorage.removeItem("accessToken");
+};
 
 const Token = {
   setAccessToken,
   setRefreshToken,
   getAccessToken,
   getRefreshToken,
-  updatedTokenService
+  updatedTokenService,
+  removeToken,
 };
 export default Token;

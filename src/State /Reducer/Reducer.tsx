@@ -4,8 +4,8 @@ const intialState = {
   user: [],
 };
 export const Reducer = (
-  state = intialState,
-  action: { type: any; payload: any }
+  state = intialState ,
+  action: { type: any; payload: any },
 ) => {
   switch (action.type) {
     case FETCH_SIGNUSER: {

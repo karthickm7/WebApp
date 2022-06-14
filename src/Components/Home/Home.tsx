@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getuser } from "../../State /Action/Action";
+import { getuser , removeuser } from "../../State /Action/Action";
 import { useNavigate } from "react-router";
-import { removeuser } from "../../State /Action/Action";
+
 
 const Home = () => {
   let dispatch: any = useDispatch();

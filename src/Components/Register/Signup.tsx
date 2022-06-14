@@ -24,7 +24,7 @@ const Signup = () => {
     password: Yup.string()
       .required("Please Enter your password")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
       )
       .required(),
@@ -40,8 +40,6 @@ const Signup = () => {
       }}
       validationSchema={schema}
       onSubmit={(data) => {
-        // console.log("clicked 1", data);
-
         dispatch(adduser(data));
         navigate("/login");
       }}

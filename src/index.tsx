@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { Store } from "./State /Store/Store";
 import axios from "axios";
 import Token from "./TokenService/Token";
+//import { useNavigate } from "react-router-dom";
 
 axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -17,7 +18,7 @@ axios.create({
 axios.interceptors.request.use((request: any) => {
   console.log("intercetor =-=-=-=-request-=-=-=-=-=-=request", request);
   const token = Token.getAccessToken();
-  console.log(token, "request------------------------ token");
+  // console.log(token, "request------------------------ token");
   request.headers = {
     "x-access-token": token,
     "Content-Type": "application/json",
@@ -34,7 +35,7 @@ axios.interceptors.response.use(
 
   async (err: any) => {
     const originalConfig = err.config;
-    console.log(originalConfig,"originalconfig")
+    console.log(originalConfig, "originalconfig");
 
     console.log("axios----error---------", err);
     if (err.response.status === 401) {
@@ -53,11 +54,15 @@ axios.interceptors.response.use(
             }
           );
           console.log("new access token", res.data.data.token);
-          Token.updatedTokenService(res?.data?.data?.token);
-          axios.defaults.headers.common["x-access-token"] = res?.data?.data?.token;
+          // let navigate = useNavigate();
+          // navigate("/login");
+          Token.removeToken();
+          // Token.updatedTokenService(res?.data?.data?.token);
+
+          // axios.defaults.headers.common["x-access-token"] = res?.data?.data?.token;
           return axios(originalConfig);
-        } catch (err) {
-          return Promise.reject(err);
+        } catch (error) {
+          return Promise.reject(error);
         }
       }
       return Promise.reject(err);

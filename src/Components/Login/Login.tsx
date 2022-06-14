@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../Login/Login.css";
 
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { getuser } from "../../State /Action/Action";
-import{adduserlogin}from "../../State /Action/Action"
+import { useDispatch } from "react-redux";
+
+import { adduserlogin } from "../../State /Action/Action";
 
 export interface Istates {
-  
   email: string;
   password: string;
 }
@@ -18,25 +17,17 @@ export interface Istates {
 const Login = () => {
   let navigate = useNavigate();
   const dispatch: any = useDispatch();
-  // const user = useSelector((state: any) => state.allreducer.user);
-  // console.log(user, "login user");
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required(),
     password: Yup.string()
       .required("Please Enter your password")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
       )
       .required(),
   });
-  //console.log("testschema", user);
-
-  // useEffect(() => {
-  //   dispatch(getuser());
-  //   console.log("getcall");
-  // }, [dispatch]);
 
   return (
     <Formik
@@ -48,16 +39,8 @@ const Login = () => {
       onSubmit={(data) => {
         console.log("clicked 1", data);
 
-        dispatch(adduserlogin(data))
-        navigate('/home')
-        // const validate = (userdata: any) => {
-        //   return userdata.email === values.email;
-        // };
-        // let currentUser = user.find(validate);
-        // if (currentUser) {
-        //   
-        // }
-       
+        dispatch(adduserlogin(data));
+        navigate("/home");
       }}
     >
       {(formik) => (

@@ -2,7 +2,7 @@ import React from "react";
 
 
 
-const Lazyloader = (importComp: { (): Promise<typeof import("../Register/Signup")>; (): Promise<typeof import("../Login/Login")>; (): Promise<typeof import("../Home/Home")>; (): Promise<typeof import("../Modal/Modals")>; (): Promise<any>;},fallback:any)=> {
+const Lazyloader = (importComp: { (): Promise<typeof import("../Components/Register/Signup")>; (): Promise<typeof import("../Components/Login/Login")>; (): Promise<typeof import("../Components/Home/Home")>; (): Promise<typeof import("../Components/Modal/Modals")>; (): Promise<any>;},fallback:any)=> {
   return class lazy extends React.Component<any,any>{
     constructor(props:any) {
       super(props);
@@ -22,15 +22,19 @@ const Lazyloader = (importComp: { (): Promise<typeof import("../Register/Signup"
 
     render() {
       const C = this.state.component;
-      return C ? (
-        <C {...this.props} />
-      ) : fallback ? (
-        fallback
-      ) : (
-        <div>loading</div>
-      );
+      if (C) {
+         return <C{...this.props}/>
+        }
+      else if(fallback){
+          return fallback;
+      }
+      else{
+        return <div> loading</div>
+      }
+      
     }
   };
 };
 
 export default Lazyloader;
+
