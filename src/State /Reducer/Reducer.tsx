@@ -5,7 +5,7 @@ const intialState = {
 };
 export const Reducer = (
   state = intialState ,
-  action: { type: any; payload: any },
+  action: { type: string; payload: string },
 ) => {
   switch (action.type) {
     case FETCH_SIGNUSER: {

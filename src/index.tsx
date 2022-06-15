@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { Store } from "./State /Store/Store";
 import axios from "axios";
 import Token from "./TokenService/Token";
+// import { useNavigate } from "react-router";
 //import { useNavigate } from "react-router-dom";
 
 axios.create({
@@ -40,9 +41,15 @@ axios.interceptors.response.use(
     console.log("axios----error---------", err);
     if (err.response.status === 401) {
       console.log("401 unauthorized");
+
       if (
         err.response.data.message === "Unauthorized! Access Token was expired!"
       ) {
+        Token.removeToken();
+        // window.location.reload();
+        // window.history.pushState("", "", "/login");
+        // navigate("/login");
+
         try {
           let refresh = Token.getRefreshToken();
           console.log(refresh, "1 hour refresh token");
@@ -54,9 +61,7 @@ axios.interceptors.response.use(
             }
           );
           console.log("new access token", res.data.data.token);
-          // let navigate = useNavigate();
-          // navigate("/login");
-          Token.removeToken();
+
           // Token.updatedTokenService(res?.data?.data?.token);
 
           // axios.defaults.headers.common["x-access-token"] = res?.data?.data?.token;

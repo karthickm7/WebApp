@@ -1,7 +1,7 @@
-const setAccessToken = (user: any) => {
+const setAccessToken = (user: string) => {
   localStorage.setItem("accessToken", JSON.stringify(user));
 };
-const setRefreshToken = (user: any) => {
+const setRefreshToken = (user:string) => {
   localStorage.setItem("RefreshToken", JSON.stringify(user));
 };
 
@@ -23,6 +23,7 @@ const updatedTokenService = (token: any) => {
 
 const removeToken = () => {
   localStorage.removeItem("accessToken");
+  //localStorage.removeItem("RefreshToken")
 };
 
 const Token = {

@@ -1,31 +1,56 @@
 import React, { useEffect } from "react";
 import { Nav, Navbar, Container, Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getuser , removeuser } from "../../State /Action/Action";
+import { getuser, removeuser } from "../../State /Action/Action";
 import { useNavigate } from "react-router";
+
+export interface editdata {
+  email:string;
+  id:number| string;
+  name:string;
+  password:string;
+  i:number
+
+}
+
+
+
+// type selector ={
+//   email:string;
+//   id:number| string;
+//   name:string;
+//   password:string;
+// }
 
 
 const Home = () => {
   let dispatch: any = useDispatch();
 
   let navigate = useNavigate();
-  const user = useSelector((state: any) => state.allreducer.user);
+  const user = useSelector((state:any) => state.allreducer.user);
+
+  console.log(user ,"Homeuseselector")
 
   //delete onClick
-  const onDelete = (e: any, userData: any) => {
+  const onDelete = (e:React.MouseEvent<HTMLElement>, userData:string| number):void => {
     e.preventDefault();
     dispatch(removeuser(userData));
     dispatch(getuser());
   };
 
   //edit onClick
-  const handleEdit = (userData: any) => {
+  const handleEdit = (userData:editdata) => {
+    console.log(userData,"type of userdata")
     navigate(`/Modals/${userData.id}`);
   };
 
   useEffect(() => {
     dispatch(getuser());
-  }, [dispatch]);
+    setTimeout(() => {
+      dispatch(getuser());
+      navigate("/login");
+    }, 30000);
+  }, [dispatch,navigate]);
 
   return (
     <>
@@ -59,7 +84,7 @@ const Home = () => {
           </thead>
           <tbody>
             {user.length > 0 &&
-              user.map((userData: any, i: number) => {
+              user.map((userData: editdata, i: number) => {
                 return (
                   <tr key={userData.i}>
                     <td>{i + 1}</td>

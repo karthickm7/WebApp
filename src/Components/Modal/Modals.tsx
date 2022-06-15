@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
+import { Dispatch } from "redux";
 import { Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -7,16 +8,21 @@ import axios from "axios";
 import { putuser } from "../../State /Action/Action";
 import "./Model.css";
 
-const Modals = (_props: any) => {
+
+export interface usedata {
+  email:string;
+  name:string
+}
+const Modals = () => {
   let navigate = useNavigate();
-  let dispatch: any = useDispatch();
-  const [state, setState] = useState<any>({});
-  const [edituser, setEdituser] = useState<any>({
+  let dispatch:any= useDispatch();
+  const [state, setState] = useState<usedata>({name:"",email:""});
+  const [edituser, setEdituser] = useState<usedata>({
     name: state.name,
     email: state.email,
   });
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleChange = (e: { target: { name: string; value:string } }) => {
     setEdituser({ ...edituser, [e.target.name]: e.target.value });
   };
 
@@ -37,7 +43,7 @@ const Modals = (_props: any) => {
         });
     };
     dynamicedit();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (state) {
@@ -45,9 +51,9 @@ const Modals = (_props: any) => {
     }
   }, [state]);
 
-  const handleUpdate = (e: any) => {
+  const handleUpdate = (e:React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(putuser(edituser,id ));
+    dispatch(putuser(edituser,id as string));
     navigate('/home');
   };
 

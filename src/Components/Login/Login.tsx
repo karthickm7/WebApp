@@ -6,6 +6,7 @@ import { Formik } from "formik";
 
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
+import { Dispatch } from "redux";
 
 import { adduserlogin } from "../../State /Action/Action";
 
@@ -15,8 +16,9 @@ export interface Istates {
 }
 
 const Login = () => {
+  //const [datas,setDatas]=useState<Istates>()
   let navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch:any= useDispatch();
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required(),
@@ -38,9 +40,10 @@ const Login = () => {
       validationSchema={schema}
       onSubmit={(data) => {
         console.log("clicked 1", data);
+        dispatch(adduserlogin(data, navigate));
 
-        dispatch(adduserlogin(data));
-        navigate("/home");
+        //GetHome();
+        //navigate("/home");
       }}
     >
       {(formik) => (
@@ -77,7 +80,6 @@ const Login = () => {
             </div>
             <div className="pb-2">
               <button className="btn btn-dark  font-weight-bold ">
-                {" "}
                 Submit
               </button>
             </div>
