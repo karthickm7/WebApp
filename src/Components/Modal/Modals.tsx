@@ -9,15 +9,16 @@ import { putuser } from "../../State /Action/Action";
 import "./Model.css";
 
 
-export interface usedata {
-  email:string;
-  name:string
+export interface usedata <T> {
+  email:T;
+  name:T
 }
+type stringTab =usedata<string>;
 const Modals = () => {
   let navigate = useNavigate();
-  let dispatch:any= useDispatch();
-  const [state, setState] = useState<usedata>({name:"",email:""});
-  const [edituser, setEdituser] = useState<usedata>({
+  let dispatch:Dispatch<any>= useDispatch();
+  const [state, setState] = useState<stringTab>({name:"",email:""});
+  const [edituser, setEdituser] = useState<stringTab>({
     name: state.name,
     email: state.email,
   });

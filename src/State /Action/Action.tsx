@@ -9,6 +9,7 @@ export const POST_SIGNUSER = "POST_SIGNUSER";
 export const FETCH_SIGNUSER = "FETCH_SIGNUSER";
 export const DELETE_USER = "DELETE_USER";
 export const POST_LOGUSER = "POST_LOGUSER";
+type stringTab =usedata<string>;
 
 export const adduser = (values: Istate) => {
   return async (dispatch: Dispatch) => {
@@ -74,7 +75,7 @@ export const removeuser = (userData: string | number) => {
   };
 };
 
-export const putuser = (edituser: usedata, id: string) => {
+export const putuser = (edituser: stringTab, id: string) => {
   console.log(edituser, "edituser");
   console.log("Im in edit action");
   return async (dispatch: Dispatch) => {
