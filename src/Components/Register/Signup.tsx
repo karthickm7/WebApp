@@ -1,14 +1,13 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import "../Register/Signup.css";
 import { Formik } from "formik";
 
 import * as Yup from "yup";
-
+import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { adduser } from "../../State /Action/Action";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router";
-import { borderRadius } from "@mui/system";
 
 export interface Istate {
   name: string;
@@ -21,7 +20,7 @@ export interface disp<T> {
   type: T;
   payload: string | number;
 }
-// export type dispatches =  typeof disp.dispatch
+
 
 const Signup = () => {
   let navigate = useNavigate();
@@ -33,7 +32,7 @@ const Signup = () => {
     password: Yup.string()
       .required("Please Enter your password")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
       )
       .required(),
@@ -65,7 +64,7 @@ const Signup = () => {
               />
             </div>
             <div>
-              <form onSubmit={formik.handleSubmit}>
+              <form onSubmit={formik.handleSubmit} data-testid="form">
                 <h1>Signup</h1>
                 <div className="pb-3">
                   <label>Name</label>
@@ -94,7 +93,7 @@ const Signup = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <p className="errorMesg">
+                  <p className="errorMesg" data-testid="emailerror-msg">
                     {formik.touched.email && formik.errors.email}
                   </p>
                 </div>
@@ -109,7 +108,7 @@ const Signup = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <p className="errorMesg">
+                  <p className="errorMesg" data-testid="Pw-msg">
                     {formik.touched.password && formik.errors.password}
                   </p>
                 </div>
