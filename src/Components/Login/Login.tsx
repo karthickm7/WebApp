@@ -68,7 +68,7 @@ const Login = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <p className="errorMesg">
+                  <p className="errorMesg" data-testid="email-error">
                     {formik.touched.email && formik.errors.email}
                   </p>
                 </div>
@@ -83,7 +83,7 @@ const Login = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  <p className="errorMesg">
+                  <p className="errorMesg" data-testid="pw-error">
                     {formik.touched.password && formik.errors.password}
                   </p>
                 </div>

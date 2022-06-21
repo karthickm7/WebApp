@@ -55,7 +55,7 @@ const Home = () => {
     <>
       <div>
         <h1 style={{ textAlign: "center" }}> welcome Home </h1>
-        <Table striped bordered hover>
+        <Table striped bordered hover data-testid="table">
           <thead>
             <tr>
               <th>Sl.No</th>
@@ -73,23 +73,27 @@ const Home = () => {
                     <td>{userData.id}</td>
                     <td>{userData.name}</td>
                     <td>{userData.email}</td>
-                    <td>
+                    <td >
                       <Button
                         onClick={() => {
                           handleEdit(userData);
                         }}
                         variant="dark"
+                        data-testid="editid"
+                        id ="editbutton"
                       >
-                        EDIT
+                        Edit
                       </Button>
                     </td>
 
-                    <td>
+                    <td >
                       <Button
                         onClick={(e) => {
                           onDelete(e, userData.id);
                         }}
                         variant="danger"
+                        data-testid="deleteFn" 
+                        id = "deletebutton" 
                       >
                         Delete
                       </Button>
@@ -104,4 +108,3 @@ const Home = () => {
   );
 };
 export default Home;
-

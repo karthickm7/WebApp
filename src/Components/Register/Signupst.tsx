@@ -1,4 +1,4 @@
-import { render as rtlrender, cleanup, screen,fireEvent} from "@testing-library/react";
+import { render as rtlrender, cleanup, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
