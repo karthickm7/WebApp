@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
@@ -8,14 +9,14 @@ import axios from "axios";
 import { putuser } from "../../State /Action/Action";
 import "./Model.css";
 
-export interface usedata<T> {
+export interface UseData<T> {
   email: T;
   name: T;
 }
-type stringTab = usedata<string>;
+type stringTab = UseData<string>;
 const Modals = () => {
-  let navigate = useNavigate();
-  let dispatch: Dispatch<any> = useDispatch();
+  const navigate = useNavigate();
+  const dispatch: Dispatch<any> = useDispatch();
   const [state, setState] = useState<stringTab>({ name: "", email: "" });
   const [edituser, setEdituser] = useState<stringTab>({
     name: state.name,
@@ -29,20 +30,21 @@ const Modals = () => {
   const { id } = useParams();
   console.log({ id });
 
-  useEffect(() => {
-    const dynamicedit = () => {
-      axios
-        .get(`http://localhost:3016/getuser/${id}`)
+  const dynamicEdit = () => {
+    axios
+      .get(`http://localhost:3016/getuser/${id}`)
 
-        .then((res) => {
-          console.log(res.data.data, "edit");
-          setState(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err, "error");
-        });
-    };
-    dynamicedit();
+      .then((res) => {
+        console.log(res.data.data, "edit");
+        setState(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  };
+
+  useEffect(() => {
+    dynamicEdit();
   }, [id]);
 
   useEffect(() => {
@@ -78,7 +80,7 @@ const Modals = () => {
             value={edituser.email}
             name="email"
             type="text"
-            placeholder="Email"
+            placeholder="Enter your mail"
           ></input>
         </div>
 

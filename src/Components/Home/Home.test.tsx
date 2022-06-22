@@ -1,9 +1,5 @@
-import {
-  render as rtlrender,
-  cleanup,
-  screen,
-  fireEvent,
-} from "@testing-library/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render as rtlrender, cleanup, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Store } from "../../State /Store/Store";
@@ -36,41 +32,25 @@ describe("Home component", () => {
     expect(table).toBeInTheDocument();
   });
 
-  it("checks the button", () => {
+  it("checks the edit button", () => {
     render(
       <Router>
         <Home />
       </Router>
     );
-    const button = screen.getByRole("Button");
-    expect(button).toHaveTextContent("Delete");
+
+   // eslint-disable-next-line testing-library/no-node-access
+    const editbutton = document.querySelector(".classedit");
+    expect(editbutton).toBeDefined();
+  });
+  it("checks the  delete button", () => {
+    render(
+      <Router>
+        <Home />
+      </Router>
+    );
+    // eslint-disable-next-line testing-library/no-node-access
+    const Deletebutton = document.querySelector(".classdelete");
+    expect(Deletebutton).toBeDefined();
   });
 });
-
-// describe("Test the button", () => {
-//   const render = (component: any) =>
-//     rtlrender(<Provider store={Store}>{component}</Provider>);
-//   afterEach(cleanup);
-
-//   function tree() {
-//     return render(
-//       <Router>
-//         <Home Delete="Delete" Edit="EDit" />
-//       </Router>
-//     );
-//   }
-
-//   it("should match with snapshot", () => {
-//     // eslint-disable-next-line testing-library/no-debugging-utils
-//     screen.debug();
-//     expect(tree).toMatchSnapshot();
-//   });
-
-//   it("check the required buttons", () => {
-//      tree();
-
-//     const editButton = screen.getByTestId("editid");
-//     expect(editButton).toBeInTheDocument();
-//   });
-
-// });

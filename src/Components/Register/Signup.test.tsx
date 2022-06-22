@@ -1,22 +1,20 @@
-import { render as rtlrender, cleanup, screen} from "@testing-library/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { render as rtlrender, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-//import { formik } from "formik";
 import { Store } from "../../State /Store/Store";
 import Signup from "./Signup";
 
-
-
 describe("Signup Test", () => {
-const render=(component:any)=>
-  rtlrender(<Provider store={Store}>{component}</Provider>);
-    afterEach(cleanup);
+  const render = (component: any) =>
+    rtlrender(<Provider store={Store}>{component}</Provider>);
+  afterEach(cleanup);
   it("Renders the signup form properly", () => {
     //arrange
     render(
       <BrowserRouter>
-      <Signup />
+        <Signup />
       </BrowserRouter>
     );
 
@@ -32,7 +30,7 @@ const render=(component:any)=>
   it("should contain single  submit button", () => {
     render(
       <BrowserRouter>
-      <Signup />
+        <Signup />
       </BrowserRouter>
     );
     const Submitbutton = screen.getAllByRole("button");
@@ -42,7 +40,7 @@ const render=(component:any)=>
   it("should not pass error msg for valid email", () => {
     render(
       <BrowserRouter>
-      <Signup />
+        <Signup />
       </BrowserRouter>
     );
 
@@ -57,8 +55,8 @@ const render=(component:any)=>
     //Arrange
     render(
       <BrowserRouter>
-    <Signup />
-    </BrowserRouter>
+        <Signup />
+      </BrowserRouter>
     );
 
     const emailplaceholder = screen.getByPlaceholderText("Email");
@@ -74,7 +72,7 @@ const render=(component:any)=>
   it("Should pass valid password", () => {
     render(
       <BrowserRouter>
-      <Signup />
+        <Signup />
       </BrowserRouter>
     );
 
@@ -88,8 +86,8 @@ const render=(component:any)=>
   it("Should pass error msg for invalid password", () => {
     render(
       <BrowserRouter>
-    <Signup />
-    </BrowserRouter>
+        <Signup />
+      </BrowserRouter>
     );
 
     const passwordfield = screen.getByPlaceholderText("password");
@@ -98,5 +96,4 @@ const render=(component:any)=>
     const errmsg = screen.queryByTestId("Pw-msg");
     expect(errmsg).toBeInTheDocument();
   });
-
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -6,8 +7,6 @@ import { Provider } from "react-redux";
 import { Store } from "./State /Store/Store";
 import axios from "axios";
 import Token from "./TokenService/Token";
-// import { useNavigate } from "react-router";
-//import { useNavigate } from "react-router-dom";
 
 axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -19,7 +18,6 @@ axios.create({
 axios.interceptors.request.use((request: any) => {
   console.log("intercetor =-=-=-=-request-=-=-=-=-=-=request", request);
   const token = Token.getAccessToken();
-  // console.log(token, "request------------------------ token");
   request.headers = {
     "x-access-token": token,
     "Content-Type": "application/json",
@@ -46,12 +44,8 @@ axios.interceptors.response.use(
         err.response.data.message === "Unauthorized! Access Token was expired!"
       ) {
         Token.removeToken();
-        // window.location.reload();
-        // window.history.pushState("", "", "/login");
-        // navigate("/login");
-
         try {
-          let refresh = Token.getRefreshToken();
+          const refresh = Token.getRefreshToken();
           console.log(refresh, "1 hour refresh token");
           const res = await axios.post(
             `${process.env.REACT_APP_SERVER_URL}/refresh`,
@@ -61,10 +55,6 @@ axios.interceptors.response.use(
             }
           );
           console.log("new access token", res.data.data.token);
-
-          // Token.updatedTokenService(res?.data?.data?.token);
-
-          // axios.defaults.headers.common["x-access-token"] = res?.data?.data?.token;
           return axios(originalConfig);
         } catch (error) {
           return Promise.reject(error);
@@ -74,7 +64,6 @@ axios.interceptors.response.use(
     }
   }
 );
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

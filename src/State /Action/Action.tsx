@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { Dispatch } from "redux";
 import { Istate } from "../../Components/Register/Signup";
 import { Istates } from "../../Components/Login/Login";
-import { usedata } from "../../Components/Modal/Modals";
+import { UseData } from "../../Components/Modal/Modals";
 import Token from "../../TokenService/Token";
 
 export const POST_SIGNUSER = "POST_SIGNUSER";
 export const FETCH_SIGNUSER = "FETCH_SIGNUSER";
 export const DELETE_USER = "DELETE_USER";
 export const POST_LOGUSER = "POST_LOGUSER";
-type stringTab =usedata<string>;
+type stringTab = UseData<string>;
 
 export const adduser = (values: Istate) => {
   return async (dispatch: Dispatch) => {
@@ -78,7 +79,7 @@ export const removeuser = (userData: string | number) => {
 export const putuser = (edituser: stringTab, id: string) => {
   console.log(edituser, "edituser");
   console.log("Im in edit action");
-  return async (dispatch: Dispatch) => {
+  return async () => {
     await axios
       .put(`http://localhost:3016/Edituser/${id}`, edituser)
 
