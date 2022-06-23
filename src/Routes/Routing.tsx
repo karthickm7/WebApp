@@ -1,21 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Modals from "../Components/Modal/Modals";
-import Lazyloader from "../LazyLoading/Lazyloader";
-import PrivateRouting from "../PrivateRouting/PrivateRouting";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Modals from '../Pages/Modal/Modals';
+import Lazyloader from '../Utils/LazyLoading/Lazyloader';
+import PrivateRouting from '../Utils/PrivateRouting/PrivateRouting';
 
-const Signup = Lazyloader(
-  () => import("../Components/Register/Signup"),
-  <h1>loading..</h1>
-);
-const Login = Lazyloader(
-  () => import("../Components/Login/Login"),
-  <h1>loading..</h1>
-);
-const Home = Lazyloader(
-  () => import("../Components/Home/Home"),
-  <h1>loading..</h1>
-);
+const Signup = Lazyloader(() => import('../Pages/Register/Signup'), <h1>loading..</h1>);
+const Login = Lazyloader(() => import('../Pages/Login/Login'), <h1>loading..</h1>);
+const Home = Lazyloader(() => import('../Pages/Home/Home'), <h1>loading..</h1>);
 
 const Routing = (
   <Router>

@@ -1,0 +1,28 @@
+.image {
+  width: 340px;
+  height: inherit;
+}
+
+.containers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+  box-shadow: 200px;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.inputbox {
+  margin-top: 5px;
+  border-radius: solid 1px;
+}
+@media (min-width:1024px) and (min-width:1024px) {
+
+.image{
+  width: 245px;
+  height:inherit
+}
+}
