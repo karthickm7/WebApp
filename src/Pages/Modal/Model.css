@@ -1,28 +1,28 @@
-.image {
-  width: 340px;
-  height: inherit;
-}
 
-.containers {
-  display: flex;
-  justify-content: center;
+
+.editbox {
   align-items: center;
-  height: 800px;
-  box-shadow: 200px;
+  width: 30%;
+  height: fit-content;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 20%);
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
 }
 
-.button {
-  margin-top: 10px;
-}
+.signUpSubmit {
+  margin-top: 20px;
+  padding: 20px;
+  
 
-.inputbox {
-  margin-top: 5px;
-  border-radius: solid 1px;
 }
-@media (min-width:1024px) and (min-width:1024px) {
-
-.image{
-  width: 245px;
-  height:inherit
-}
+.parent{
+  display: flex;
+  justify-self:center;
+  align-items: center;
+  background-color: grey;
+  height: 100vh;
 }

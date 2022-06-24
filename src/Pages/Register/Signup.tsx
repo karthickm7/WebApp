@@ -13,6 +13,7 @@ export interface Istate {
   name: string;
   email: string;
   password: string;
+  id: number | string;
 }
 const Signup = () => {
   const navigate = useNavigate();

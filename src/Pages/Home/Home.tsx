@@ -41,6 +41,11 @@ const Home = () => {
     navigate(`/Modals/${userData.id}`);
   };
 
+  //add onClick
+  const onAdd = () => {
+    navigate('/add');
+  };
+
   useEffect(() => {
     dispatch(getuser());
     setTimeout(() => {
@@ -58,6 +63,7 @@ const Home = () => {
       </Navbar>
       <div>
         <h1 style={{ textAlign: 'center' }}> welcome Home </h1>
+
         <Table striped bordered hover data-testid="table">
           <thead>
             <tr>
@@ -106,6 +112,9 @@ const Home = () => {
               })}
           </tbody>
         </Table>
+        <Button onClick={onAdd} className="addButton">
+          Add user
+        </Button>
         {showModal && <Popup shows={showModal} onHides={handleClose} datas={userData} />}
       </div>
     </>

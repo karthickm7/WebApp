@@ -21,15 +21,15 @@ const Popup = ({ shows, onHides, datas }: PopupProps) => {
     <>
       <Modal show={shows} onHide={onHides}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Delete User</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{datas}</Modal.Body>
+        <Modal.Body>are you sure to delete the user with {datas} ID ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHides}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handledelete}>
-            Delete
+          <Button variant="danger" onClick={handledelete}>
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>
