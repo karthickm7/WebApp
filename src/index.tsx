@@ -41,7 +41,6 @@ axios.interceptors.response.use(
       console.log('401 unauthorized');
 
       if (err.response.data.message === 'Unauthorized! Access Token was expired!') {
-        //Token.removeToken();
         try {
           const refresh = Token.getRefreshToken();
           console.log(refresh, '1 hour refresh token');

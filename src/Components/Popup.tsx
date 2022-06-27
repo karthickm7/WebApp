@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getuser, removeuser } from '../State /Action/Action';
 import { useDispatch } from 'react-redux';
+// import { RiDeleteBin2Line } from 'react-icons/bs';
 
 interface PopupProps {
   shows: boolean;
@@ -14,16 +15,17 @@ const Popup = ({ shows, onHides, datas }: PopupProps) => {
   const dispatch: any = useDispatch();
   const handledelete = () => {
     console.log('popupdelete');
-    dispatch(removeuser(datas)), dispatch(getuser());
+    dispatch(removeuser(datas));
+    dispatch(getuser());
   };
 
   return (
     <>
       <Modal show={shows} onHide={onHides}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete User</Modal.Title>
+          <Modal.Title>Delete Confirmation !!</Modal.Title>
         </Modal.Header>
-        <Modal.Body>are you sure to delete the user with {datas} ID ?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete the user with this : {datas} ID ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={onHides}>
             Cancel

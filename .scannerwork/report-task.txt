@@ -2,5 +2,5 @@ projectKey=newapp
 serverUrl=http://localhost:9000
 serverVersion=9.4.0.54424
 dashboardUrl=http://localhost:9000/dashboard?id=newapp
-ceTaskId=AYGLgUklH0FVI2SrZBDo
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYGLgUklH0FVI2SrZBDo
+ceTaskId=AYGkyBv9tXy7dcOJqodJ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYGkyBv9tXy7dcOJqodJ

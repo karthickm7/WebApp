@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Navbar, Nav } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getuser, removeuser } from '../../State /Action/Action';
+import { getuser } from '../../State /Action/Action';
 import { useNavigate } from 'react-router';
-import Popup from '../../Components/ popup';
+import Popup from '../../Components/Popup';
 
 export interface EditData {
   email: string;
@@ -20,19 +20,16 @@ const Home = () => {
   const user = useSelector((state: any) => state.allreducer.user);
 
   console.log(user, 'Homeuseselector');
-  const [userData, setUserData] = useState<string | number>('0');
+  const [userDatas, setUserDatas] = useState<string | number>('0');
   const [showModal, setShow] = useState<boolean>(false);
 
   const handleClose = () => setShow(false);
-  //const handleShow = () => setShow(true);
 
   //delete onClick
   const onDelete = (e: React.MouseEvent<HTMLElement>, userData: string | number): void => {
     e.preventDefault();
     setShow(true);
-    setUserData(userData);
-    //dispatch(removeuser(userData));
-    //dispatch(getuser());
+    setUserDatas(userData);
   };
 
   //edit onClick
@@ -112,10 +109,10 @@ const Home = () => {
               })}
           </tbody>
         </Table>
-        <Button onClick={onAdd} className="addButton">
+        <Button onClick={onAdd} className="addButton" variant="info">
           Add user
         </Button>
-        {showModal && <Popup shows={showModal} onHides={handleClose} datas={userData} />}
+        {showModal && <Popup shows={showModal} onHides={handleClose} datas={userDatas} />}
       </div>
     </>
   );

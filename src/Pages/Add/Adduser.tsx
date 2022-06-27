@@ -8,6 +8,11 @@ import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Istate } from '../../Pages/Register/Signup';
 import { useNavigate } from 'react-router';
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import Avatar from '@mui/material/Avatar';
+import Logos from '../../Assets/Logo.png';
 import './Adduser.css';
 
 const Adduser = () => {
@@ -29,44 +34,61 @@ const Adduser = () => {
     navigate('/home');
   };
   return (
-    <>
-      <div className="parent">
-        <div className="editbox">
-          <h1>Add User</h1>
-          <form style={{ justifyContent: 'center' }}>
-            <Grid item xs={12}>
-              <label className="labels">UserName</label>
-              <TextField
-                multiline
-                name="name"
-                placeholder="enter your name"
-                value={addData.name}
-                onChange={handleChange}
-                margin="dense"
-              />
-            </Grid>
-            <div />
-            <Grid item xs={12}>
-              <label className="labels"> Email </label>
-              <TextField
-                multiline
-                name="email"
-                placeholder="Enter mail"
-                value={addData.email}
-                onChange={handleChange}
-                margin="dense"
-              />
-            </Grid>
-            <div />
-            <Grid item xs={8}>
-              <Button className="signUpSubmit" variant="contained" onClick={handleAdd}>
-                Add User
-              </Button>
-            </Grid>
-          </form>
+    <div className="parent">
+      <div className="editbox">
+        <div className="avatar">
+          <Avatar alt="User Account" src={Logos} sx={{ width: 100, height: 100, margin: -9 }} />
         </div>
+        <h1 className="headings">Add User</h1>
+        <form style={{ justifyContent: 'center' }}>
+          <Grid item xs={12} sm={8} md={6} lg={6}>
+            <label className="labels">UserName</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                )
+              }}
+              hiddenLabel
+              variant="filled"
+              name="name"
+              value={addData.name}
+              onChange={handleChange}
+              margin="dense"
+            />
+          </Grid>
+          <div />
+          <Grid item xs={12} sm={8} md={6} lg={6}>
+            <label className="labelss">Email</label>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailOutlinedIcon />
+                  </InputAdornment>
+                )
+              }}
+              hiddenLabel
+              variant="filled"
+              name="email"
+              value={addData.email}
+              onChange={handleChange}
+              margin="dense"
+            />
+          </Grid>
+          <div />
+          <Button
+            className="signUpSubmit"
+            variant="contained"
+            onClick={handleAdd}
+            sx={{ margin: '10px', fontSize: 12 }}>
+            Add User
+          </Button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 export default Adduser;

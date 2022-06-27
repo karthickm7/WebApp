@@ -3,14 +3,18 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { Dispatch } from 'redux';
-
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import Logos from '../../Assets/Logo.png';
 import { putuser } from '../../State /Action/Action';
 import './Model.css';
 import { TextField, Button } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
 
 export interface UseData<T> {
   email: T;
@@ -35,7 +39,7 @@ const Modals = () => {
 
   const dynamicEdit = () => {
     axios
-      .get(`http://localhost:3016/getuser/${id}`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/getuser/${id}`)
 
       .then((res) => {
         console.log(res.data.data, 'edit');
@@ -65,33 +69,58 @@ const Modals = () => {
   return (
     <div className="parent">
       <div className="editbox">
-        <h1>Edit user</h1>
+        <div className="avatar">
+          <Avatar alt="User Account" src={Logos} sx={{ width: 100, height: 100, margin: -9 }} />
+        </div>
+        <h1 className="headings">Edit user</h1>
         <form style={{ justifyContent: 'center' }}>
-          <Grid item xs={12}>
-            <div></div>
+          <Grid item xs={12} sm={8} md={6} lg={6}>
+            <label className="labels">UserName</label>
             <TextField
-              label="username"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                )
+              }}
+              placeholder="usertName"
+              hiddenLabel
+              variant="filled"
               name="name"
-              fullWidth
               value={edituser.name}
               onChange={handleChange}
-              margin="dense"
+              margin="normal"
             />
           </Grid>
           <div />
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={8} md={6} lg={6}>
+            <label className="labelss">Email</label>
             <TextField
-              fullWidth
-              label="email"
-              name="name"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmailOutlinedIcon />
+                  </InputAdornment>
+                )
+              }}
+              hiddenLabel
+              placeholder="Enter your mail"
+              variant="filled"
+              name="email"
               value={edituser.email}
               onChange={handleChange}
-              margin="dense"
+              margin="normal"
             />
           </Grid>
           <div />
-          <Grid item xs={8}>
-            <Button className="signUpSubmit" variant="contained" onClick={handleUpdate}>
+          <Grid item xs={12} sm={8} md={6} lg={6}>
+            <Button
+              sx={{ margin: '10px', fontSize: 12 }}
+              className="signUpSubmit"
+              variant="contained"
+              size="small"
+              onClick={handleUpdate}>
               Save Changes
             </Button>
           </Grid>
