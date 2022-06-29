@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getuser, removeuser } from '../State /Action/Action';
 import { useDispatch } from 'react-redux';
-// import { RiDeleteBin2Line } from 'react-icons/bs';
+import { RiDeleteBin5Fill } from 'react-icons/ri';
 
 interface PopupProps {
   shows: boolean;
@@ -23,7 +23,10 @@ const Popup = ({ shows, onHides, datas }: PopupProps) => {
     <>
       <Modal show={shows} onHide={onHides}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Confirmation !!</Modal.Title>
+          <Modal.Title>
+            Delete Confirmation
+            <RiDeleteBin5Fill />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete the user with this : {datas} ID ?</Modal.Body>
         <Modal.Footer>

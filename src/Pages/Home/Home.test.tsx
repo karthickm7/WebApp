@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { render as rtlrender, cleanup, screen } from '@testing-library/react';
+import { render as rtlrender, cleanup, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Store } from '../../State /Store/Store';
+import userEvent from '@testing-library/user-event';
 import Home from './Home';
 
 describe('Home component', () => {
@@ -52,4 +53,28 @@ describe('Home component', () => {
     const Deletebutton = document.querySelector('.classdelete');
     expect(Deletebutton).toBeDefined();
   });
+  it('checks the  delete button', () => {
+    render(
+      <Router>
+        <Home />
+      </Router>
+    );
+    // eslint-disable-next-line testing-library/no-node-access
+    const Deletebutton = document.querySelector('.classdelete');
+    expect(Deletebutton).toBeDefined();
+  });
+
+  // it('checks the  delete button', () => {
+  //   render(
+  //     <Router>
+  //       <Home />
+  //     </Router>
+  //   );
+  //   // eslint-disable-next-line testing-library/no-node-access
+  //   const Deletebutton = document.querySelector('.classdelete');
+  //   expect(Deletebutton).toBeDefined();
+  //   const dbutton = jest.fn();
+  //   fireEvent.click(Deletebutton);
+  //   expect(dbutton).toHaveBeenCalledTimes(0);
+  // });
 });
